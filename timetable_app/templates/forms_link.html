@@ -4,150 +4,278 @@
 <head>
     <title>Forms Link</title>
     <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            margin: 0;
-            padding: 0 20px 40px;
-            background: teal;
-            color: #2c3e50;
-        }
+       body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0 20px 40px;
+    background: teal;
+    color: #2c3e50;
+}
 
-        nav {
-            background-color: #34495e;
-            padding: 12px 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.15);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
+nav {
+    background-color: #34495e;
+    padding: 12px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
 
-        .nav-left, .nav-right {
-            display: flex;
-            gap: 20px;
-            align-items: center;
-        }
+    /* Responsive wrap */
+    flex-wrap: wrap;
+    padding: 12px 15px;
+}
 
-        nav a {
-            color: white;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 16px;
-            padding: 8px 14px;
-            border-radius: 6px;
-            transition: background-color 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
+.nav-left, .nav-right {
+    display: flex;
+    gap: 20px;
+    align-items: center;
 
-        nav a:hover {
-            background-color: #2c3e50;
-        }
+    /* Responsive wrap */
+    flex-wrap: wrap;
+}
 
-        nav a .icon {
-            font-size: 18px;
-        }
+.nav-left {
+    margin-bottom: 0;
+}
 
-        .logo-container img {
-            height: 42px;
-            width: auto;
-            border-radius: 6px;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.3);
-            object-fit: contain;
-            cursor: pointer;
-            transition: transform 0.3s ease;
-        }
+/* Added margin bottom for small screens */
+@media (max-width: 992px) {
+    .nav-left {
+        margin-bottom: 10px;
+    }
+}
 
-        .logo-container img:hover {
-            transform: scale(1.05);
-        }
+nav a {
+    color: white;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 16px;
+    padding: 8px 14px;
+    border-radius: 6px;
+    transition: background-color 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
 
-        h1 {
-            text-align: center;
-            color: white;
-            font-size: 36px;
-            margin: 40px 0 50px;
-            font-weight: 700;
-            letter-spacing: 1px;
-        }
+/* Bigger clickable areas on smaller screens */
+@media (max-width: 600px) {
+    nav a {
+        font-size: 18px;
+        padding: 12px 20px;
+        width: 100%;
+        justify-content: center;
+        margin-bottom: 6px;
+    }
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
+    .nav-left, .nav-right {
+        justify-content: center;
+    }
 
-        .grid-container {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 30px;
-        }
+    .nav-left {
+        margin-bottom: 15px;
+    }
+}
 
-        .card-link {
-            text-decoration: none;
-            color: inherit;
-        }
+nav a:hover {
+    background-color: #2c3e50;
+}
 
-        .card {
-            border-radius: 16px;
-            padding: 30px 20px;
-            height: 150px;
-            text-align: center;
-            cursor: pointer;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            position: relative;
-            font-weight: 600;
-            letter-spacing: 0.6px;
-            background-color: white;
-        }
+nav a .icon {
+    font-size: 18px;
+}
 
-        .card-link:nth-child(1) .card { border-left: 6px solid #3498db; }
-        .card-link:nth-child(2) .card { border-left: 6px solid #1abc9c; }
-        .card-link:nth-child(3) .card { border-left: 6px solid #f39c12; }
-        .card-link:nth-child(4) .card { border-left: 6px solid #2ecc71; }
-        .card-link:nth-child(5) .card { border-left: 6px solid #9b59b6; }
-        .card-link:nth-child(6) .card { border-left: 6px solid #e67e22; }
-        .card-link:nth-child(7) .card { border-left: 6px solid #34495e; }
+.logo-container img {
+    height: 42px;
+    width: auto;
+    border-radius: 6px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+    object-fit: contain;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
 
-        .card:hover {
-            transform: translateY(-6px);
-            box-shadow: 0 14px 30px rgba(0, 0, 0, 0.15);
-        }
+.logo-container img:hover {
+    transform: scale(1.05);
+}
 
-        .icon {
-            font-size: 44px;
-            margin-bottom: 15px;
-            color: inherit;
-        }
+/* Smaller logo on very small screens */
+@media (max-width: 480px) {
+    .logo-container img {
+        height: 36px;
+    }
+}
 
-        .label {
-            font-size: 20px;
-            font-weight: 700;
-            letter-spacing: 0.5px;
-            color: #34495e;
-        }
+h1 {
+    text-align: center;
+    color: white;
+    font-size: 36px;
+    margin: 40px 0 50px;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
 
-        .grid-container > .card-link:last-child {
-            grid-column: 1 / -1;
-        }
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
 
-        @media (max-width: 992px) {
-            .grid-container {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+}
 
-        @media (max-width: 600px) {
-            .grid-container {
-                grid-template-columns: 1fr;
-            }
-        }
+/* Reduce gap on very small screens */
+@media (max-width: 480px) {
+    .grid-container {
+        gap: 20px;
+    }
+}
+
+.card-link {
+    text-decoration: none;
+    color: inherit;
+}
+
+.card {
+    border-radius: 16px;
+    padding: 30px 20px;
+    height: 150px;
+    text-align: center;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+    font-weight: 600;
+    letter-spacing: 0.6px;
+    background-color: white;
+}
+
+.card-link:nth-child(1) .card { border-left: 6px solid #3498db; }
+.card-link:nth-child(2) .card { border-left: 6px solid #1abc9c; }
+.card-link:nth-child(3) .card { border-left: 6px solid #f39c12; }
+.card-link:nth-child(4) .card { border-left: 6px solid #2ecc71; }
+.card-link:nth-child(5) .card { border-left: 6px solid #9b59b6; }
+.card-link:nth-child(6) .card { border-left: 6px solid #e67e22; }
+.card-link:nth-child(7) .card { border-left: 6px solid #34495e; }
+
+.card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 14px 30px rgba(0, 0, 0, 0.15);
+}
+
+.icon {
+    font-size: 44px;
+    margin-bottom: 15px;
+    color: inherit;
+}
+
+.label {
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    color: #34495e;
+}
+
+.grid-container > .card-link:last-child {
+    grid-column: 1 / -1;
+}
+
+/* Responsive grid columns */
+@media (max-width: 992px) {
+    .grid-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
+    .grid-container {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Stack nav vertically on very small screens */
+@media (max-width: 480px) {
+    nav {
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+    }
+
+    nav a {
+        font-size: 16px;
+        padding: 14px 20px;
+        width: 100%;
+        border-radius: 0;
+        text-align: center;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        margin: 0;
+    }
+}
+
+/* Container padding on smallest devices */
+@media (max-width: 400px) {
+    body {
+        padding: 0 12px 30px;
+    }
+}
+
+/* Hamburger button style */
+.hamburger {
+  display: none; /* hidden by default */
+  flex-direction: column;
+  justify-content: space-around;
+  width: 28px;
+  height: 22px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  margin-left: 15px;
+  z-index: 1100; /* above nav links */
+}
+
+.hamburger:focus {
+  outline: none;
+}
+
+.hamburger .bar {
+  width: 100%;
+  height: 3px;
+  background-color: white;
+  border-radius: 2px;
+  transition: all 0.3s ease;
+}
+
+/* Show hamburger only on small screens */
+@media (max-width: 600px) {
+  .hamburger {
+    display: flex;
+  }
+  .nav-right {
+    display: none; /* hide links by default on small screens */
+    width: 100%;
+    flex-direction: column;
+    background-color: #34495e;
+    margin-top: 10px;
+    border-radius: 6px;
+  }
+  .nav-right.active {
+    display: flex; /* show when toggled */
+  }
+  .nav-right a {
+    padding: 12px 20px;
+    justify-content: flex-start;
+    width: 100%;
+  }
+}
     </style>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
@@ -161,6 +289,14 @@
                 <span class="logo-text">Ardhi University</span>
             </a>
         </div>
+
+        <!-- Hamburger menu button -->
+        <button class="hamburger" aria-label="Toggle navigation" aria-expanded="false">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </button>
+
         <div class="nav-right">
             <a href="/resources/">
                 <i class="fas fa-database icon"></i> Resources
@@ -255,5 +391,18 @@
             </a>
         </div>
     </div>
+
+    <script>
+      const hamburger = document.querySelector('.hamburger');
+      const navRight = document.querySelector('.nav-right');
+
+      hamburger.addEventListener('click', () => {
+        navRight.classList.toggle('active');
+
+        // Update ARIA attribute for accessibility
+        const expanded = hamburger.getAttribute('aria-expanded') === 'true';
+        hamburger.setAttribute('aria-expanded', !expanded);
+      });
+    </script>
 </body>
 </html>

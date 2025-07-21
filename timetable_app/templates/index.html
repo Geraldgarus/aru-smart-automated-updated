@@ -32,6 +32,7 @@
       background: #0f172a;
       box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
       flex-wrap: wrap;
+      position: relative;
     }
 
     .logo-container {
@@ -45,6 +46,7 @@
       border-radius: 8px;
       box-shadow: 0 2px 6px rgba(0,0,0,0.2);
       transition: transform 0.3s ease;
+      user-select: none;
     }
 
     .logo-container img:hover {
@@ -86,6 +88,68 @@
       color: white;
       box-shadow: 0 4px 8px rgb(59 130 246 / 0.4);
       transform: translateY(-2px);
+    }
+
+    /* Hamburger Button */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      justify-content: space-around;
+      width: 28px;
+      height: 22px;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      z-index: 1100;
+    }
+
+    .hamburger:focus {
+      outline: none;
+    }
+
+    .hamburger .bar {
+      width: 100%;
+      height: 3px;
+      background-color: #cbd5e1;
+      border-radius: 2px;
+      transition: all 0.3s ease;
+    }
+
+    /* Small screen styles */
+    @media (max-width: 768px) {
+      nav {
+        justify-content: space-between;
+      }
+
+      nav ul {
+        flex-direction: column;
+        width: 100%;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease;
+        background: #0f172a;
+        border-radius: 0 0 12px 12px;
+        margin-top: 0.5rem;
+      }
+
+      nav ul.show {
+        max-height: 300px; /* enough height to show all links */
+      }
+
+      nav ul li {
+        text-align: center;
+        margin: 0.7rem 0;
+      }
+
+      nav ul li a {
+        font-size: 1.2rem;
+        padding: 0.7rem 0;
+      }
+
+      .hamburger {
+        display: flex;
+      }
     }
 
     main {
@@ -185,19 +249,6 @@
     }
 
     @media (max-width: 768px) {
-      nav {
-        justify-content: center;
-        gap: 1rem;
-      }
-
-      nav ul {
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 1rem;
-        margin-top: 0.5rem;
-        width: 100%;
-      }
-
       main h1 {
         font-size: 1.8rem;
       }
@@ -231,7 +282,14 @@
       <img src="{% static 'images/aru logo.png' %}" alt="ARU Logo" />
       <span>ARDHI UNIVERSITY</span>
     </div>
-    <ul>
+
+    <button class="hamburger" aria-label="Toggle navigation" aria-expanded="false" aria-controls="nav-menu">
+      <span class="bar"></span>
+      <span class="bar"></span>
+      <span class="bar"></span>
+    </button>
+
+    <ul id="nav-menu">
       <li><a class="active" href="#"><i class="fas fa-home"></i> Home</a></li>
       <li><a href="/about/"><i class="fas fa-info-circle"></i> About</a></li>
       <li><a href="/contact/"><i class="fas fa-envelope"></i> Contact</a></li>
@@ -251,12 +309,23 @@
 
   <footer>
     <div class="links">
-   
+      <!-- You can add footer links here -->
     </div>
     <div>
       &copy; 2025 Ardhi University. All rights reserved.
     </div>
   </footer>
+
+  <script>
+    const hamburger = document.querySelector('.hamburger');
+    const navMenu = document.getElementById('nav-menu');
+
+    hamburger.addEventListener('click', () => {
+      const expanded = hamburger.getAttribute('aria-expanded') === 'true';
+      hamburger.setAttribute('aria-expanded', !expanded);
+      navMenu.classList.toggle('show');
+    });
+  </script>
 
 </body>
 </html>
