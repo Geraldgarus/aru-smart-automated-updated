@@ -90,7 +90,6 @@
       transform: translateY(-2px);
     }
 
-    /* Hamburger Button */
     .hamburger {
       display: none;
       flex-direction: column;
@@ -116,7 +115,6 @@
       transition: all 0.3s ease;
     }
 
-    /* Small screen styles */
     @media (max-width: 768px) {
       nav {
         justify-content: space-between;
@@ -131,20 +129,28 @@
         background: #0f172a;
         border-radius: 0 0 12px 12px;
         margin-top: 0.5rem;
+        padding: 0;
       }
 
       nav ul.show {
-        max-height: 300px; /* enough height to show all links */
+        max-height: 500px;
       }
 
       nav ul li {
-        text-align: center;
-        margin: 0.7rem 0;
+        width: 100%;
       }
 
       nav ul li a {
-        font-size: 1.2rem;
-        padding: 0.7rem 0;
+        display: block;
+        width: 100%;
+        text-align: center;
+        padding: 1rem;
+        font-size: 1.1rem;
+        border-top: 1px solid #1e293b;
+      }
+
+      nav ul li:first-child a {
+        border-top: none;
       }
 
       .hamburger {
@@ -309,7 +315,7 @@
 
   <footer>
     <div class="links">
-      <!-- You can add footer links here -->
+      <!-- Optional footer links -->
     </div>
     <div>
       &copy; 2025 Ardhi University. All rights reserved.

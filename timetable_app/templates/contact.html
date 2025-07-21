@@ -10,7 +10,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 
   <style>
-    /* Reset and base */
+    /* RESET & BASE */
     * {
       box-sizing: border-box;
       margin: 0;
@@ -27,6 +27,7 @@
       line-height: 1.6;
     }
 
+    /* NAVIGATION */
     nav {
       background: rgba(15, 23, 42, 0.95);
       padding: 1rem 2rem;
@@ -37,6 +38,7 @@
       box-shadow: 0 4px 10px rgba(0,0,0,0.15);
       border-bottom-left-radius: 16px;
       border-bottom-right-radius: 16px;
+      position: relative;
     }
 
     .logo-container {
@@ -46,29 +48,27 @@
       color: #e0e7ff;
       font-weight: 700;
       font-size: 1.3rem;
-      letter-spacing: 1px;
       user-select: none;
-      cursor: pointer;
-      transition: transform 0.3s ease;
-    }
-
-    .logo-container:hover {
-      transform: scale(1.05);
     }
 
     .logo-container img {
       height: 48px;
-      width: auto;
-      filter: drop-shadow(0 2px 3px rgba(0,0,0,0.3));
       border-radius: 8px;
-      object-fit: contain;
+    }
+
+    .menu-toggle {
+      display: none;
+      font-size: 1.8rem;
+      color: #e0e7ff;
+      background: none;
+      border: none;
+      cursor: pointer;
     }
 
     nav ul {
       display: flex;
-      gap: 1.75rem;
+      gap: 1.5rem;
       list-style: none;
-      flex-wrap: wrap;
     }
 
     nav ul li a {
@@ -76,43 +76,36 @@
       color: #cbd5e1;
       font-weight: 600;
       font-size: 1rem;
-      padding: 0.3rem 0.6rem;
+      padding: 0.4rem 0.7rem;
       border-radius: 6px;
-      transition: all 0.3s ease;
       display: flex;
       align-items: center;
       gap: 0.4rem;
-      user-select: none;
     }
 
     nav ul li a:hover,
     nav ul li a.active {
       background: #3b82f6;
       color: white;
-      box-shadow: 0 4px 8px rgb(59 130 246 / 0.4);
-      transform: translateY(-2px);
     }
 
+    /* HERO & MAIN */
     main {
       flex-grow: 1;
       padding: 3rem 1rem 4rem;
       max-width: 1100px;
       margin: 0 auto;
-      width: 100%;
     }
 
     .hero-section {
       text-align: center;
-      margin-bottom: 3rem;
       color: #e0e7ff;
-      text-shadow: 0 1px 3px rgba(0,0,0,0.3);
     }
 
     .hero-section h1 {
       font-size: 2.8rem;
       font-weight: 900;
       margin-bottom: 0.5rem;
-      letter-spacing: 1.3px;
     }
 
     .hero-section p {
@@ -125,75 +118,13 @@
 
     .contact-container {
       display: flex;
-      gap: 2.5rem;
+      gap: 2rem;
       flex-wrap: wrap;
       justify-content: center;
+      margin-top: 3rem;
     }
 
-    /* Contact Details Section */
-    .contact-details-section {
-      background: white;
-      border-radius: 20px;
-      box-shadow: 0 12px 24px rgb(0 0 0 / 0.15);
-      padding: 2.5rem 3rem;
-      flex: 1 1 380px;
-      min-width: 320px;
-      transition: box-shadow 0.3s ease;
-      color: #334155;
-    }
-
-    .contact-details-section:hover {
-      box-shadow: 0 20px 40px rgb(59 130 246 / 0.4);
-      transform: translateY(-8px);
-    }
-
-    .contact-details-section h2 {
-      text-align: center;
-      font-size: 1.9rem;
-      margin-bottom: 1.8rem;
-      font-weight: 700;
-      letter-spacing: 0.03em;
-      color: #1e3a8a;
-    }
-
-    .contact-details-section p {
-      font-size: 1.15rem;
-      margin-bottom: 1.2rem;
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      color: #2563eb;
-      font-weight: 600;
-      user-select: text;
-    }
-
-    .contact-details-section p i {
-      font-size: 1.5rem;
-      min-width: 30px;
-      text-align: center;
-      color: #3b82f6;
-      flex-shrink: 0;
-    }
-
-    .social-links {
-      display: flex;
-      justify-content: center;
-      gap: 1.6rem;
-      margin-top: 2rem;
-    }
-
-    .social-links a {
-      font-size: 1.7rem;
-      color: #3b82f6;
-      transition: color 0.3s ease, transform 0.3s ease;
-    }
-
-    .social-links a:hover {
-      color: #2563eb;
-      transform: scale(1.25);
-    }
-
-    /* Developers Contact Section */
+    .contact-details-section,
     .developers-contact-section {
       background: white;
       border-radius: 20px;
@@ -201,158 +132,128 @@
       padding: 2.5rem 3rem;
       flex: 1 1 380px;
       min-width: 320px;
-      color: #334155;
-      transition: box-shadow 0.2 ease;
     }
 
-    .developers-contact-section:hover {
-      box-shadow: 0 20px 40px rgb(59 130 246 / 0.4);
-      transform: translateY(-4px)
-    }
-
+    .contact-details-section h2,
     .developers-contact-section h2 {
-      text-align: center;
       font-size: 1.9rem;
-      margin-bottom: 2rem;
-      font-weight: 700;
+      text-align: center;
       color: #1e3a8a;
-      letter-spacing: 0.03em;
+      margin-bottom: 1.5rem;
+    }
+
+    .contact-details-section p,
+    .developers-contact-section p {
+      font-size: 1.1rem;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      color: #2563eb;
+    }
+
+    .contact-details-section i,
+    .developers-contact-section i {
+      margin-right: 0.6rem;
+    }
+
+    .social-links {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      margin-top: 1.5rem;
+    }
+
+    .social-links a {
+      font-size: 1.5rem;
+      color: #3b82f6;
     }
 
     .developer-card {
       display: flex;
-      align-items: center;
-      gap: 1.25rem;
-      margin-bottom: 1.8rem;
-      padding: 0.8rem 1rem;
-      border-radius: 12px;
+      gap: 1rem;
       background: #f1f5f9;
-      box-shadow: 0 3px 6px rgb(0 0 0 / 0.08);
-      cursor: default;
-      transition: box-shadow 0.3s ease, background-color 0.3s ease;
-      user-select: none;
-    }
-
-    .developer-card:hover {
-      box-shadow: 0 12px 24px rgb(59 130 246 / 0.3);
-      background-color: #e0e7ff;
+      padding: 1rem;
+      border-radius: 12px;
+      margin-bottom: 1.5rem;
     }
 
     .developer-icon {
-      font-size: 3.8rem;
+      font-size: 3rem;
       color: #3b82f6;
-      flex-shrink: 0;
     }
 
     .developer-card h3 {
       margin-bottom: 0.3rem;
-      color: #1e293b;
-      font-weight: 700;
-      font-size: 1.2rem;
-    }
-
-    .developer-card p {
-      font-style: italic;
-      margin-bottom: 0.3rem;
-      color: #64748b;
-      font-weight: 500;
-    }
-
-    .developer-card a {
-      color: #2563eb;
-      text-decoration: none;
-      font-weight: 600;
-      font-size: 0.95rem;
-    }
-
-    .developer-card a:hover {
-      text-decoration: underline;
     }
 
     footer {
       background: rgba(15, 23, 42, 0.95);
-      padding: 1.2rem 2rem;
-      display: flex;
-      justify-content: space-between;
-      border-top-left-radius: 16px;
-      border-top-right-radius: 16px;
-      box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.2);
-      font-size: 0.9rem;
       color: #94a3b8;
-      flex-wrap: wrap;
-      user-select: none;
+      padding: 1rem 2rem;
+      text-align: center;
     }
 
-    footer .links {
-      display: flex;
-      gap: 1.75rem;
-      flex-wrap: wrap;
-      justify-content: center;
-      margin-bottom: 0.4rem;
-    }
-
-    footer .links a {
-      color: #94a3b8;
-      text-decoration: none;
-      font-weight: 600;
-      transition: color 0.3s ease;
-    }
-
-    footer .links a:hover {
-      color: #38bdf8;
-      text-decoration: underline;
-    }
-
-    @media (max-width: 900px) {
-      .contact-container {
-        flex-direction: column;
-        padding: 0 1rem;
-        gap: 2rem;
-      }
-
-      nav {
-        justify-content: center;
-        gap: 1.5rem;
+    /* RESPONSIVE NAVIGATION */
+    @media (max-width: 768px) {
+      .menu-toggle {
+        display: block;
       }
 
       nav ul {
-        justify-content: center;
-        gap: 1.25rem;
-        margin-top: 0.75rem;
-      }
-
-      footer {
         flex-direction: column;
-        align-items: center;
-        text-align: center;
-        gap: 0.6rem;
+        width: 100%;
+        background: #0f172a;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        overflow: hidden;
+        max-height: 0;
+        transition: max-height 0.3s ease;
+        border-bottom-left-radius: 12px;
+        border-bottom-right-radius: 12px;
       }
-    }
 
-    @media (max-width: 480px) {
-      .hero-section h1 {
-        font-size: 2rem;
+      nav ul.show {
+        max-height: 500px;
       }
 
-      .hero-section p {
-        font-size: 1rem;
+      nav ul li {
+        width: 100%;
       }
 
       nav ul li a {
-        font-size: 0.9rem;
+        padding: 1rem;
+        text-align: center;
+        width: 100%;
+        border-top: 1px solid #1e293b;
+      }
+
+      nav ul li:first-child a {
+        border-top: none;
       }
     }
   </style>
+
+  <script>
+    function toggleMenu() {
+      const nav = document.querySelector('nav ul');
+      nav.classList.toggle('show');
+    }
+  </script>
 </head>
 <body>
 
   <nav>
-    <div class="logo-container" role="banner" tabindex="0" aria-label="Ardhi University Logo and Home Link">
+    <div class="logo-container">
       <a href="{% url 'index' %}" style="display:flex; align-items:center; gap:0.75rem; text-decoration:none; color:#e0e7ff;">
         <img src="{% static 'images/aru logo.png' %}" alt="ARU Logo" />
         <span>ARDHI UNIVERSITY</span>
       </a>
     </div>
+    <button class="menu-toggle" onclick="toggleMenu()">
+      <i class="fas fa-bars"></i>
+    </button>
     <ul>
       <li><a href="{% url 'index' %}"><i class="fas fa-home"></i> Home</a></li>
       <li><a href="{% url 'about' %}"><i class="fas fa-info-circle"></i> About</a></li>
@@ -363,60 +264,43 @@
   </nav>
 
   <main>
-    <section class="hero-section" role="banner">
+    <section class="hero-section">
       <h1>Contact Us</h1>
-      <p>
-        Got a question, feedback, or need help? Reach out and we'll be happy to assist you.
-      </p>
+      <p>Got a question, feedback, or need help? Reach out and we'll be happy to assist you.</p>
     </section>
 
-    <div class="contact-container" role="main">
-      
-      <section class="contact-details-section" aria-labelledby="contact-info-title">
-        <h2 id="contact-info-title">Contact Information</h2>
-        <p><i class="fas fa-map-marker-alt" aria-hidden="true"></i> Office Address: P.O. Box 12345, Dar es Salaam, Tanzania</p>
-        <p><i class="fas fa-phone" aria-hidden="true"></i> Phone: +255 123 456 789</p>
-        <p><i class="fas fa-envelope" aria-hidden="true"></i> Email: info@ardhi.ac.tz</p>
-        <p><i class="fas fa-clock" aria-hidden="true"></i> Working Hours: Mon - Fri, 8:00 AM - 5:00 PM</p>
-        <div class="social-links" aria-label="Social Media Links">
-          <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-          <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
-          <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+    <div class="contact-container">
+      <section class="contact-details-section">
+        <h2>Contact Information</h2>
+        <p><i class="fas fa-map-marker-alt"></i> P.O. Box 12345, Dar es Salaam, Tanzania</p>
+        <p><i class="fas fa-phone"></i> +255 123 456 789</p>
+        <p><i class="fas fa-envelope"></i> info@ardhi.ac.tz</p>
+        <p><i class="fas fa-clock"></i> Mon - Fri, 8:00 AM - 5:00 PM</p>
+        <div class="social-links">
+          <a href="#"><i class="fab fa-facebook-f"></i></a>
+          <a href="#"><i class="fab fa-twitter"></i></a>
+          <a href="#"><i class="fab fa-linkedin-in"></i></a>
         </div>
       </section>
 
-      <section class="developers-contact-section" aria-labelledby="developers-contact-title">
-        <h2 id="developers-contact-title">Developers Contact</h2>
-        <div class="developer-card" tabindex="0">
-          <i class="fas fa-user-circle developer-icon" aria-hidden="true"></i>
+      <section class="developers-contact-section">
+        <h2>Developers Contact</h2>
+        <div class="developer-card">
+          <i class="fas fa-user-circle developer-icon"></i>
           <div>
             <h3>Gerald Garus</h3>
             <p>Developer</p>
-            <p><i class="fas fa-phone" aria-hidden="true"></i> +255 712 345 678</p>
+            <p><i class="fas fa-phone"></i> +255 712 345 678</p>
             <a href="mailto:geraldgarus@gmail.com">geraldgarus@gmail.com</a>
           </div>
         </div>
-        <div class="developer-card" tabindex="0">
-          <i class="fas fa-user-circle developer-icon" aria-hidden="true"></i>
-          <div>
-            <h3>Cathe</h3>
-            <p>Assistant Developer</p>
-            <p><i class="fas fa-phone" aria-hidden="true"></i> +255 713 987 654</p>
-            <a href="mailto:cathe@gmail.com">cathe@gmail.com</a>
-          </div>
-        </div>
+        
       </section>
-
     </div>
   </main>
 
   <footer>
-    <div class="links">
-     
-    </div>
-    <div>
-      &copy; 2025 Ardhi University. All rights reserved.
-    </div>
+    <div>&copy; 2025 Ardhi University. All rights reserved.</div>
   </footer>
 
 </body>

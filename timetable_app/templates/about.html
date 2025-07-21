@@ -32,6 +32,7 @@
       background: #0f172a;
       box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
       flex-wrap: wrap;
+      position: relative;
     }
 
     .logo-container {
@@ -42,16 +43,16 @@
     }
 
     .logo-container img {
-      height: 48px;           /* Slightly bigger */
+      height: 48px;
       width: auto;
-      border-radius: 6px;     /* Rounded corners */
-      box-shadow: 0 2px 6px rgba(0,0,0,0.25); /* subtle shadow */
+      border-radius: 6px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.25);
       object-fit: contain;
       transition: transform 0.3s ease;
     }
 
     .logo-container img:hover {
-      transform: scale(1.1);  /* Slight zoom on hover */
+      transform: scale(1.1);
     }
 
     .logo-container span {
@@ -60,6 +61,15 @@
       color: #e2e8f0;
       user-select: none;
       text-shadow: 0 1px 3px rgba(0,0,0,0.4);
+    }
+
+    .nav-toggle {
+      display: none;
+      font-size: 1.5rem;
+      color: #e2e8f0;
+      background: none;
+      border: none;
+      cursor: pointer;
     }
 
     nav ul {
@@ -186,17 +196,27 @@
     }
 
     @media (max-width: 768px) {
-      nav {
-        justify-content: center;
-        gap: 1rem;
+      .nav-toggle {
+        display: block;
       }
 
       nav ul {
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 1rem;
-        margin-top: 0.5rem;
+        display: none;
+        flex-direction: column;
         width: 100%;
+        margin-top: 1rem;
+        gap: 0;
+      }
+
+      nav ul.show {
+        display: flex;
+      }
+
+      nav ul li {
+        text-align: center;
+        width: 100%;
+        padding: 0.5rem 0;
+        border-top: 1px solid rgba(255,255,255,0.1);
       }
 
       .hero-section h1 {
@@ -217,7 +237,6 @@
   </style>
 </head>
 <body>
-
   {% load static %}
 
   <nav>
@@ -225,7 +244,13 @@
       <img src="{% static 'images/aru logo.png' %}" alt="ARU Logo" />
       <span>ARDHI UNIVERSITY</span>
     </div>
-    <ul>
+
+    <!-- Toggle button (hamburger) -->
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
+      <i class="fas fa-bars"></i>
+    </button>
+
+    <ul id="navLinks">
       <li><a href="{% url 'index' %}"><i class="fas fa-home"></i> Home</a></li>
       <li><a class="active" href="#"><i class="fas fa-info-circle"></i> About</a></li>
       <li><a href="/contact/"><i class="fas fa-envelope"></i> Contact</a></li>
@@ -265,12 +290,19 @@
 
   <footer>
     <div class="links">
-      
+      <!-- Optional footer links -->
     </div>
     <div>
       &copy; 2025 Ardhi University. All rights reserved.
     </div>
   </footer>
 
+  <script>
+    // Toggle nav menu on small screens
+    document.getElementById('navToggle').addEventListener('click', () => {
+      const navLinks = document.getElementById('navLinks');
+      navLinks.classList.toggle('show');
+    });
+  </script>
 </body>
 </html>
