@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Login - ARU Smart Timetable</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap');
+
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      color: #1f2937;
+      background: linear-gradient(135deg, #e0f2fe, #3b82f6); /* blue gradient background */
+    }
+
+    .login-wrapper {
+      background: white;
+      padding: 50px 45px;
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(59, 130, 246, 0.1);
+      max-width: 680px;
+      width: 100%;
+      text-align: center;
+      border: 2px solid #fbbf24;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .login-wrapper:hover {
+      border-color: #f59e0b;
+      box-shadow: 0 16px 40px rgba(245, 158, 11, 0.25);
+    }
+
+    h1 {
+      margin-bottom: 30px;
+      font-weight: 600;
+      font-size: 2.2rem;
+      color: #1e3a8a;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      text-align: left;
+    }
+
+    label {
+      font-weight: 600;
+      margin-bottom: 6px;
+      font-size: 1rem;
+      color: #374151;
+    }
+
+    input {
+      padding: 14px 16px;
+      border-radius: 12px;
+      border: 2px solid #d1d5db;
+      font-size: 1rem;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    input::placeholder {
+      color: #9ca3af;
+      font-style: italic;
+    }
+
+    input:focus {
+      outline: none;
+      border-color: #f59e0b;
+      box-shadow: 0 0 8px #fbbf2455;
+    }
+
+    .error {
+      color: #dc2626;
+      font-size: 0.85rem;
+      margin-top: 4px;
+      font-weight: 600;
+    }
+
+    button {
+      background-color: #1e3a8a;
+      border: none;
+      border-radius: 14px;
+      color: white;
+      padding: 16px;
+      font-size: 1.15rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background-color 0.3s ease, box-shadow 0.3s ease;
+      width: 100%;
+      margin-top: 8px;
+      box-shadow: 0 8px 24px rgba(30, 58, 138, 0.4);
+    }
+
+    button:hover {
+      background-color: #1c256d;
+      box-shadow: 0 12px 30px rgba(28, 37, 109, 0.6);
+    }
+
+    p {
+      margin-top: 28px;
+      text-align: center;
+      font-weight: 500;
+      font-size: 1rem;
+      color: #374151;
+    }
+
+    p a {
+      color: #f59e0b;
+      text-decoration: none;
+      font-weight: 700;
+      transition: color 0.3s ease;
+    }
+
+    p a:hover {
+      color: #b45309;
+      text-decoration: underline;
+    }
+
+    @media (max-width: 480px) {
+      .login-wrapper {
+        padding: 35px 30px;
+      }
+
+      h1 {
+        font-size: 1.8rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="login-wrapper" role="main" aria-label="Login form for ARU Smart Timetable Generator">
+    <h1>Welcome Back to ARU Smart Timetable</h1>
+    <form method="post" novalidate>
+      {% csrf_token %}
+
+      <label for="id_username">Email or Username</label>
+      {{ form.username }}
+      {% if form.username.errors %}
+        <div class="error">{{ form.username.errors.0 }}</div>
+      {% endif %}
+
+      <label for="id_password">Password</label>
+      {{ form.password }}
+      {% if form.password.errors %}
+        <div class="error">{{ form.password.errors.0 }}</div>
+      {% endif %}
+
+      <button type="submit">Log In</button>
+    </form>
+
+    <p>Don't have an account? <a href="{% url 'register' %}">Register now</a></p>
+  </main>
+</body>
+</html>

@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Register - ARU Timetable Generator</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap');
+
+    body {
+      margin: 0;
+      font-family: 'Montserrat', sans-serif;
+      background: linear-gradient(135deg, #d4f1f4, #75e6da, #189ab4); /* updated gradient */
+      color: #1a3e47;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    .register-container {
+      background: #ffffff;
+      padding: 50px 60px;
+      border-radius: 20px;
+      box-shadow: 0 12px 30px rgba(26, 62, 71, 0.15);
+      width: 100%;
+      max-width: 750px;
+      text-align: center;
+      border: 2px solid #7bc6cc;
+      transition: box-shadow 0.3s ease;
+    }
+
+    .register-container:hover {
+      box-shadow: 0 16px 45px rgba(26, 62, 71, 0.3);
+      border-color: #4a9ca9;
+    }
+
+    h1 {
+      font-size: 2.8rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+      color: #056676;
+      letter-spacing: 1px;
+    }
+
+    h3 {
+      font-weight: 400;
+      color: #3d6f72;
+      margin-bottom: 40px;
+      font-style: normal;
+      font-size: 1.1rem;
+    }
+
+    form {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 28px 40px;
+    }
+
+    .full-width {
+      grid-column: span 2;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 6px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      color: #2c5153;
+      text-align: left;
+    }
+
+    input {
+      width: 100%;
+      padding: 14px 18px;
+      border-radius: 12px;
+      border: 1.8px solid #7bc6cc;
+      font-size: 1rem;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    input::placeholder {
+      color: #a1c7ca;
+      font-style: italic;
+    }
+
+    input:focus {
+      outline: none;
+      border-color: #056676;
+      box-shadow: 0 0 8px #05667688;
+    }
+
+    .form-group {
+      text-align: left;
+    }
+
+    .error {
+      margin-top: 5px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #e63946;
+    }
+
+    button {
+      background: #056676;
+      color: white;
+      border: none;
+      padding: 15px 0;
+      font-size: 1.2rem;
+      font-weight: 700;
+      border-radius: 14px;
+      cursor: pointer;
+      transition: background 0.3s ease, box-shadow 0.3s ease;
+      width: 100%;
+      box-shadow: 0 6px 15px #034a51cc;
+    }
+
+    button:hover {
+      background: #034a51;
+      box-shadow: 0 10px 25px #023437cc;
+    }
+
+    p {
+      margin-top: 30px;
+      color: #2c5153;
+      font-weight: 500;
+    }
+
+    p a {
+      color: #056676;
+      font-weight: 600;
+      text-decoration: none;
+    }
+
+    p a:hover {
+      text-decoration: underline;
+    }
+
+    @media (max-width: 640px) {
+      form {
+        grid-template-columns: 1fr;
+      }
+
+      .full-width {
+        grid-column: 1;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="register-container" role="main" aria-label="Register for ARU Smart Automated Timetable Generator">
+    <h1>Welcome to ARU Timetable Generator</h1>
+    <h3>Create your account to start crafting smart and efficient schedules effortlessly.</h3>
+    <form method="post" novalidate>
+      {% csrf_token %}
+
+      <div class="form-group">
+        <label for="id_username">Username</label>
+        {{ form.username }}
+        {% if form.username.errors %}
+          <div class="error">{{ form.username.errors.0 }}</div>
+        {% endif %}
+      </div>
+
+      <div class="form-group">
+        <label for="id_email">Email</label>
+        {{ form.email }}
+        {% if form.email.errors %}
+          <div class="error">{{ form.email.errors.0 }}</div>
+        {% endif %}
+      </div>
+
+      <div class="form-group">
+        <label for="id_password">Password</label>
+        {{ form.password }}
+        {% if form.password.errors %}
+          <div class="error">{{ form.password.errors.0 }}</div>
+        {% endif %}
+      </div>
+
+      <div class="form-group">
+        <label for="id_confirm_password">Confirm Password</label>
+        {{ form.confirm_password }}
+        {% if form.confirm_password.errors %}
+          <div class="error">{{ form.confirm_password.errors.0 }}</div>
+        {% endif %}
+      </div>
+
+      <div class="full-width">
+        <button type="submit">Register</button>
+      </div>
+    </form>
+
+    <p>Already have an account? <a href="{% url 'login' %}">Login here</a></p>
+  </div>
+</body>
+</html>

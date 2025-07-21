@@ -1,0 +1,129 @@
+{% load custom_filters %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Timetable for Year: {{ year_of_study }} - {{ program_degree.name }}</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: teal;
+            color: #333;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            background-color: #000;
+            color: white;
+            padding: 20px;
+            font-size: 28px;
+            margin-bottom: 20px;
+        }
+        .total-students {
+            color: lightgreen;
+            font-weight: bold;
+        }
+        .table-container {
+            width: 100%;
+            overflow-x: auto;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: #fff;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+            vertical-align: middle;
+            color: teal;
+            font-size: 0.85rem;
+            min-width: 80px;
+            white-space: normal;
+            font-weight: bold;
+        }
+        th {
+            background-color: #ecf0f1;
+            color: #2c3e50;
+            font-weight: 600;
+        }
+        .class-info {
+            font-weight: bold;
+            color: #2980b9;
+        }
+        .class-subinfo {
+            font-size: 0.75rem;
+            color: green;
+            margin-top: 2px;
+        }
+        /* NEW: Class cells distinct background */
+        .class-cell {
+            background-color:#fff3cd; /* Light blue background */
+            border: 1px solidrgb(186, 207, 221); /* Darker blue border */
+            border-radius: 4px;
+        }
+        @media screen and (max-width: 768px) {
+            th, td {
+                font-size: 0.7rem;
+                min-width: 70px;
+                padding: 6px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<h1>
+    📘 Timetable for Year {{ year_of_study }} - {{ program_degree.name }}
+    (<span class="total-students">{{ total_students }} Students</span>)
+</h1>
+
+<div class="table-container">
+    <table>
+        <thead>
+            <tr>
+                <th>Day / Time</th>
+                {% for hour in hours %}
+                    {% with start=hour|stringformat:"02d" %}
+                        <th>{{ start }}:00 - {{ hour|add:"1"|stringformat:"02d" }}:00</th>
+                    {% endwith %}
+                {% endfor %}
+            </tr>
+        </thead>
+        <tbody>
+            {% for day in "Monday,Tuesday,Wednesday,Thursday,Friday"|split:"," %}
+                <tr>
+                    <td><strong>{{ day }}</strong></td>
+                    {% with day_cells=day_cells_map|dict_get:day %}
+                        {% if day_cells %}
+                            {% for cell in day_cells %}
+                                {% if cell.type == 'class' %}
+                                    <td colspan="{{ cell.colspan }}" class="class-cell">
+                                        <div class="class-info">{{ cell.entry.course }}</div>
+                                        <div class="class-subinfo">{{ cell.entry.lecturer }}</div>
+                                        <div class="class-subinfo">
+                                            {{ cell.entry.room }} (Capacity: {{ room_capacity_map|dict_get:cell.entry.room }})
+                                        </div>
+                                        <div class="class-subinfo">
+                                            <strong>Time:</strong> {{ cell.entry.start_time|time:"H:i" }} - {{ cell.entry.end_time|time:"H:i" }}
+                                        </div>
+                                    </td>
+                                {% else %}
+                                    <td colspan="{{ cell.colspan }}"></td>
+                                {% endif %}
+                            {% endfor %}
+                        {% else %}
+                            <td colspan="{{ hours|length }}"></td>
+                        {% endif %}
+                    {% endwith %}
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+</body>
+</html>

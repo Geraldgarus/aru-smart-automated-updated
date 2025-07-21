@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Resources</title>
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+  />
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #74ebd5 0%, #ACB6E5 100%);
+      margin: 0;
+      padding: 40px 20px;
+      color: #222;
+    }
+  
+    h1 {
+      text-align: center;
+      color: white;
+      margin-bottom: 50px;
+      font-size: 32px;
+      text-shadow: 1px 1px 4px rgba(0,0,0,0.3);
+    }
+  
+    .container {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 40px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+  
+    .card-link {
+      text-decoration: none;
+      color: inherit;
+    }
+  
+    .link-card {
+      background-color: #ffffffdd;
+      border-radius: 16px;
+      padding: 50px 30px;
+      text-align: center;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+      transition: transform 0.25s ease, box-shadow 0.25s ease, background-color 0.3s ease;
+      cursor: pointer;
+      border: 3px solid transparent;
+    }
+  
+    .link-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 16px 32px rgba(0, 0, 0, 0.25);
+      background-color: #ffffffee;
+      border-color: #3498db;
+    }
+  
+    .link-card i {
+      font-size: 55px;
+      margin-bottom: 20px;
+      transition: color 0.3s ease;
+    }
+
+    .card-link:nth-child(1) .link-card i { color:black; }       /* Red */
+    .card-link:nth-child(2) .link-card i { color: #FFD93D; }       /* Yellow */
+    .card-link:nth-child(3) .link-card i { color: #6BCB77; }       /* Green */
+    .card-link:nth-child(4) .link-card i { color: #4D96FF; }       /* Blue */
+    .card-link:nth-child(5) .link-card i { color: #FF922B; }       /* Orange */
+    .card-link:nth-child(6) .link-card i { color: #845EC2; }       /* Purple */
+    .card-link:nth-child(7) .link-card i { color: #00C9A7; }       /* Teal */
+
+    .link-card:hover i {
+      color: #0D47A1 !important;
+    }
+  
+    .link-card span {
+      display: block;
+      font-size: 22px;
+      font-weight: 700;
+      color: #222;
+    }
+
+    /* Home Button Style */
+    .home-button {
+      display: inline-block;
+      background-color: #34495e;
+      color: #fff;
+      padding: 14px 24px;
+      border-radius: 10px;
+      text-decoration: none;
+      font-size: 18px;
+      text-align: center;
+      margin-bottom: 30px;
+      cursor: pointer;
+      box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+      transition: background-color 0.3s ease;
+    }
+  
+    .home-button:hover {
+      background-color: #2c3e50;
+    }
+  
+    /* LAST CARD full-width if alone in last row */
+    .container > .card-link:nth-child(7):nth-last-child(1) {
+      grid-column: span 3;
+    }
+  
+    /* RESPONSIVE: 2 columns on tablets */
+    @media (max-width: 992px) {
+      .container {
+        grid-template-columns: repeat(2, 1fr);
+      }
+  
+      .container > .card-link:nth-child(7):nth-last-child(1) {
+        grid-column: span 2;
+      }
+    }
+  
+    /* RESPONSIVE: 1 column on phones */
+    @media (max-width: 576px) {
+      .container {
+        grid-template-columns: 1fr;
+      }
+  
+      .container > .card-link:nth-child(7):nth-last-child(1) {
+        grid-column: span 1;
+      }
+    }
+  </style>
+</head>
+<body>
+  <a href="/forms-link/" class="home-button">🏠 Go back</a> <!-- Home Button -->
+  <h1>Welcome to the Resources Page</h1>
+
+  <div class="container">
+
+    <a href="{% url 'school_list' %}" class="card-link">
+      <div class="link-card">
+        <i class="fas fa-school"></i>
+        <span>Schools</span>
+      </div>
+    </a>
+
+    <a href="{% url 'department_list' %}" class="card-link">
+      <div class="link-card">
+        <i class="fas fa-building"></i>
+        <span>Departments</span>
+      </div>
+    </a>
+
+    <a href="{% url 'program_degree_list' %}" class="card-link">
+      <div class="link-card">
+        <i class="fas fa-graduation-cap"></i>
+        <span>Program Degrees</span>
+      </div>
+    </a>
+
+    <a href="{% url 'year_of_study_list' %}" class="card-link">
+      <div class="link-card">
+        <i class="fas fa-calendar-alt"></i>
+        <span>Years of Study</span>
+      </div>
+    </a>
+
+    <a href="{% url 'course_list' %}" class="card-link">
+      <div class="link-card">
+        <i class="fas fa-book"></i>
+        <span>Courses</span>
+      </div>
+    </a>
+
+    <a href="{% url 'lecturer_list' %}" class="card-link">
+      <div class="link-card">
+        <i class="fas fa-chalkboard-teacher"></i>
+        <span>Lecturers</span>
+      </div>
+    </a>
+
+    <a href="{% url 'room_list' %}" class="card-link">
+      <div class="link-card">
+        <i class="fas fa-door-open"></i>
+        <span>Rooms</span>
+      </div>
+    </a>
+
+  </div>
+</body>
+</html>

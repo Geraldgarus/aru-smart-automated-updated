@@ -1,0 +1,326 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Timetable Links</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            padding: 40px;
+            background-color: teal;
+            color: #2c3e50;
+            line-height: 1.6;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 3rem;
+            color: white;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            font-weight: 700;
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            color: #27ae60;
+            margin-top: 40px;
+            margin-bottom: 20px;
+            position: relative;
+            font-weight: 600;
+        }
+
+        h2::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 4px;
+            background-color: #2980b9;
+            margin-top: 10px;
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 2px;
+        }
+
+        h3, h4 {
+            font-size: 1.5rem;
+            color: #34495e;
+            margin-top: 15px;
+            font-weight: 600;
+            text-align: left;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        h3 .label, h4 .label {
+            color:green; /* Highlight label like "SCHOOL:" and "DEPARTMENT:" */
+        }
+
+        .horizontal-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            max-width: 900px;
+            margin: 10px auto 30px auto;
+            justify-content: flex-start;
+        }
+
+        .horizontal-links a {
+            flex: 1 1 calc(33.33% - 12px);
+            max-width: calc(33.33% - 12px);
+            text-align: center;
+            text-decoration: none;
+            color: #2980b9;
+            font-size: 1.2rem;
+            padding: 14px 18px;
+            background-color: whitesmoke;
+            border-radius: 8px;
+            box-shadow: 0 2px 6px rgba(41, 128, 185, 0.15);
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: 1px solid #d0d7de;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .horizontal-links a:hover {
+            background-color: #27ae60;
+            color: white;
+            transform: translateX(5px);
+            box-shadow: 0 6px 12px rgba(39, 174, 96, 0.4);
+            border-color: transparent;
+        }
+
+        .total-students {
+            color: black;
+            font-weight: bold;
+            font-size: 1rem;
+            margin-top: 6px;
+        }
+
+        .no-data {
+            color: #e74c3c;
+            font-style: italic;
+            font-weight: 600;
+            max-width: 900px;
+            margin: 0 auto 30px auto;
+            text-align: center;
+            display: block;
+        }
+
+        .section {
+            margin-bottom: 50px;
+            padding: 25px 20px;
+            background-color: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 6px 20px rgba(44, 62, 80, 0.1);
+            max-width: 940px;
+            margin-left: auto;
+            margin-right: auto;
+            text-align: left;
+        }
+
+        .home-button {
+            display: inline-block;
+            background-color: darkblue;
+            color: #fff;
+            padding: 12px 28px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-size: 1.4rem;
+            margin-bottom: 30px;
+            cursor: pointer;
+            box-shadow: 0 6px 14px rgba(41, 128, 185, 0.4);
+            transition: background-color 0.3s ease;
+            margin-right: 10px;
+        }
+
+        .home-button:hover {
+            background-color: #27ae60;
+            box-shadow: 0 8px 20px rgba(39, 174, 96, 0.5);
+        }
+
+        .messages-container {
+            max-width: 600px;
+            margin: 20px auto 40px auto;
+            text-align: center;
+        }
+
+        .message-box {
+            padding: 20px 25px;
+            border-radius: 8px;
+            color: white;
+            font-weight: 600;
+            margin-bottom: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            font-size: 18px;
+        }
+
+        .message-success {
+            background-color: #2ecc71;
+        }
+
+        .message-error {
+            background-color: #e74c3c;
+        }
+
+        .message-button {
+            background: white;
+            color: #2ecc71;
+            border: none;
+            padding: 10px 18px;
+            font-weight: bold;
+            border-radius: 6px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+
+        .skipped-courses {
+            background-color: #fff3cd;
+            border: 1px solid #ffeeba;
+            color: #856404;
+            max-width: 940px;
+            margin: 20px auto 40px auto;
+            padding: 20px;
+            border-radius: 12px;
+        }
+
+        .skipped-courses h2 {
+            margin-bottom: 15px;
+        }
+
+        .skipped-courses ul {
+            list-style: disc inside;
+        }
+
+        .skipped-courses ul li {
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+
+            h2 {
+                font-size: 2rem;
+            }
+
+            .section {
+                padding: 15px 10px;
+                max-width: 100%;
+            }
+
+            .horizontal-links a {
+                flex: 1 1 100%;
+                max-width: 100%;
+                padding: 12px 15px;
+                font-size: 1.1rem;
+            }
+
+            .home-button {
+                font-size: 1.2rem;
+                padding: 10px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<a href="/forms-link/" class="home-button">🏠 Go back</a>
+
+
+{% if messages %}
+<div class="messages-container">
+    {% for message in messages %}
+    <div class="message-box {% if message.tags == 'success' %}message-success{% else %}message-error{% endif %}">
+        {{ message }}
+        <br>
+        <button class="message-button" onclick="window.location.href=window.location.href">OK</button>
+    </div>
+    {% endfor %}
+</div>
+{% endif %}
+
+<h1>📚 Timetable Navigation</h1>
+
+{% if skipped_courses %}
+<div class="skipped-courses">
+    <h2>⚠️ Skipped</h2>
+    <ul>
+        {% for course, year, program, reason in skipped_courses %}
+            <li>
+                <strong>{{ course }}</strong> (Year {{ year }}, {{ program }}) - {{ reason }}
+            </li>
+        {% endfor %}
+    </ul>
+</div>
+{% endif %}
+
+<div class="section">
+    <h2>🎓 Year of Study - Program Degrees</h2>
+    {% for school in schools %}
+        <h3><span class="label">SCHOOL NAME:</span> {{ school.name }}</h3>
+        {% for department in school.departments.all %}
+            <h4><span class="label">DEPARTMENT NAME:</span> {{ department.name }}</h4>
+            {% for program in department.program_degrees.all %}
+                <div class="horizontal-links">
+                    {% for year in program.years_of_study.all|dictsort:"year" %}
+                        <a href="{% url 'timetable_for_year' program_degree_id=program.id year_of_study=year.year %}">
+                            Year {{ year.year }}<br>
+                            {{ program.name }}<br>
+                            <span class="total-students">👥 {{ year.total_students }} students</span>
+                        </a>
+                    {% endfor %}
+                </div>
+            {% endfor %}
+        {% endfor %}
+    {% endfor %}
+</div>
+
+<div class="section">
+    <h2>👨‍🏫 Lecturers</h2>
+    {% if lecturers %}
+    <div class="horizontal-links">
+        {% for lecturer in lecturers %}
+            <a href="{% url 'timetable_for_lecturer' lecturer_id=lecturer.id %}">
+                {{ lecturer.name }}
+            </a>
+        {% endfor %}
+    </div>
+    {% else %}
+        <span class="no-data">No lecturers available.</span>
+    {% endif %}
+</div>
+
+<div class="section">
+    <h2>🏫 Rooms</h2>
+    {% if rooms %}
+    <div class="horizontal-links">
+        {% for room in rooms %}
+            <a href="{% url 'timetable_for_room' room_id=room.id %}">
+                {{ room.name }}<br>
+                <span class="total-students">🏟️ Capacity: {{ room.capacity }}</span>
+            </a>
+        {% endfor %}
+    </div>
+    {% else %}
+        <span class="no-data">No rooms available.</span>
+    {% endif %}
+</div>
+
+</body>
+</html>

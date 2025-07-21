@@ -1,0 +1,226 @@
+{% load custom_filters %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Full Timetable</title>
+    <style>
+        /* Your existing CSS here */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0; padding: 0;
+            background-color: teal;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            min-height: 100vh;
+        }
+        h1 {
+            text-align: center;
+            color: white;
+            padding: 20px;
+            background-color: black;
+            margin: 0;
+            font-size: 36px;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        h2, h3, h4, h5 {
+            color:white;
+            margin-top: 20px;
+            font-size: 1.5rem;
+            text-align: center;
+        }
+        .content-container {
+            width: 80%;
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+        }
+        table {
+            width: 90%;
+            margin: 0 auto 25px;
+            border-collapse: collapse;
+            background-color: #fff;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 18px 20px;
+            text-align: left;
+            vertical-align: top;
+            font-size: 1rem;
+        }
+        th {
+            background-color: #ecf0f1;
+            color: #2c3e50;
+            font-size: 1.1rem;
+        }
+        td {
+            color: green;
+            font-size: 20px;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+        .skipped {
+            background-color: yellow;
+            border: 1px solid red;
+            padding: 20px;
+            margin-bottom: 30px;
+            border-radius: 8px;
+        }
+        .skipped h2 {
+            color: red;
+            font-size: 1.4rem;
+        }
+        .skipped ul {
+            padding-left: 20px;
+            font-size: 1rem;
+            list-style-type: disc;
+            color: #e74c3c;
+        }
+        .skipped ul li {
+            margin-bottom: 8px;
+        }
+        ul {
+            padding-left: 20px;
+            margin: 0;
+        }
+        li {
+            font-size: 0.9rem;
+            margin-bottom: 5px;
+        }
+        .day-entry {
+            margin: 10px 0;
+        }
+        .day-entry span {
+            font-weight: bold;
+            color: #2980b9;
+            font-size: 20px;
+        }
+        .day-entry small {
+            font-style: italic;
+            color: green;
+        }
+        .generate-btn {
+            padding: 10px 20px;
+            background-color:blue;
+            color: white;
+            font-size: 16px;
+            text-decoration: none;
+            border-radius: 5px;
+            display: inline-block;
+            cursor: pointer;
+            border: none;
+            transition: background-color 0.3s;
+        }
+        .generate-btn:hover {
+            background-color: #1abc9c;
+        }
+        @media (max-width: 768px) {
+            table {
+                width: 95%;
+                font-size: 0.9rem;
+            }
+            h1 {
+                font-size: 28px;
+            }
+            h2, h3, h4, h5 {
+                font-size: 1.2rem;
+            }
+            .skipped {
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <h1>
+        📅 Full Timetable
+        <div>
+            <a href="/forms-link/" class="generate-btn" style="margin-right: 10px;">🏠 Home</a>
+            <a href="/timetable/links/" class="generate-btn" style="margin-right: 10px;">📚 Timetable Navigation</a>
+            <a href="/timetable/" class="generate-btn">🔄 Re-generate Timetable</a>
+        </div>
+    </h1>
+
+    <div class="content-container">
+        {% if skipped_courses %}
+            <div class="skipped">
+                <h2>⚠️ Skipped </h2>
+                <ul>
+                    {% for course, year, program, reason in skipped_courses %}
+                        <li>{{ course }} (Year {{ year }}, {{ program }}) - {{ reason }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+
+        {% regroup timetable_data by school as school_groups %}
+        {% for school_group in school_groups %}
+            <h2>School: {{ school_group.grouper }}</h2>
+
+            {% regroup school_group.list by department as department_groups %}
+            {% for department_group in department_groups %}
+                <h3>Department: {{ department_group.grouper }}</h3>
+
+                {% regroup department_group.list by program_degree as program_groups %}
+                {% for program_group in program_groups %}
+                    <h4>Program: {{ program_group.grouper }}</h4>
+
+                    {% regroup program_group.list by year_of_study as year_groups %}
+                    {% for year_group in year_groups %}
+                        <h5>
+                            Year {{ year_group.grouper }}
+                            {% with key=program_group.grouper|add:"|"|add:year_group.grouper %}
+                                ({{ total_students_map|dict_get:key }} Students)
+                            {% endwith %}
+                        </h5>
+
+                        <table>
+                            <tr>
+                                <th>Day</th>
+                                <th>Schedule</th>
+                            </tr>
+
+                            {% regroup year_group.list|dictsort:"day" by day as day_groups %}
+                            {% for day_group in day_groups|sort_by_day %}
+                                <tr>
+                                    <td>{{ day_group.grouper }}</td>
+                                    <td>
+                                        <ul>
+                                            {% for entry in day_group.list|dictsort:"start_time" %}
+                                                <li class="day-entry">
+                                                    <span>{{ entry.start_time|time:"H:i" }} - {{ entry.end_time|time:"H:i" }}</span><br>
+                                                    <span>{{ entry.course }}</span><br>
+                                                    <small>
+                                                        {{ entry.lecturer }} - {{ entry.room }}
+                                                        (Capacity: {{ room_capacity_map|dict_get:entry.room }})
+                                                    </small>
+                                                </li>
+                                            {% endfor %}
+                                        </ul>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </table>
+
+                    {% endfor %}
+                {% endfor %}
+            {% endfor %}
+        {% endfor %}
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Edit Course</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f4f4f4;
+      padding: 40px 20px;
+    }
+
+    .form-container {
+      max-width: 600px;
+      margin: auto;
+      background: #fff;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    label {
+      display: block;
+      margin-top: 15px;
+      font-weight: bold;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 10px;
+      font-size: 16px;
+      margin-top: 5px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+
+    button {
+      margin-top: 20px;
+      width: 100%;
+      background-color: #3498db;
+      color: white;
+      padding: 12px;
+      font-size: 16px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #2980b9;
+    }
+
+    .back-link {
+      margin-top: 20px;
+      text-align: center;
+    }
+
+    .back-link a {
+      color: #3498db;
+      text-decoration: none;
+    }
+
+    .back-link a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="form-container">
+    <h2>Edit Course</h2>
+    <form method="POST">
+      {% csrf_token %}
+
+      <label for="name">Course Name</label>
+      <input type="text" id="name" name="name" value="{{ course.name }}" required>
+
+      <label for="credits">Credits</label>
+      <select id="credits" name="credits" required>
+        {% for value, label in credit_choices %}
+
+          <option value="{{ value }}" {% if course.credits == value %}selected{% endif %}>{{ label }}</option>
+        {% endfor %}
+      </select>
+
+      <label for="year_of_study">Year of Study</label>
+      <select id="year_of_study" name="year_of_study" required>
+        {% for year in years_of_study %}
+          <option value="{{ year.id }}" {% if course.year_of_study.id == year.id %}selected{% endif %}>
+            Year {{ year.year }} – {{ year.program_degree.name }}
+          </option>
+        {% endfor %}
+      </select>
+
+      <button type="submit">Save Changes</button>
+    </form>
+
+    <div class="back-link">
+      <a href="{% url 'course_list' %}">← Back to Courses</a>
+    </div>
+  </div>
+
+</body>
+</html>
