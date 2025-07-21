@@ -14,7 +14,8 @@ SECRET_KEY = os.getenv('SECRET_KEY', 'django-insecure-g&bk$0g&$$optq=+)n^9l$@2a4
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv('DEBUG', 'False').lower() == 'true'
 
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'your-render-app-name.onrender.com']  # Replace with your actual Render domain
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'aru-smart-automated-updated.onrender.com']
+ # Replace with your actual Render domain
 
 # Application definition
 INSTALLED_APPS = [
