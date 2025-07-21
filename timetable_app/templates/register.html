@@ -9,7 +9,7 @@
     body {
       margin: 0;
       font-family: 'Montserrat', sans-serif;
-      background: linear-gradient(135deg, #d4f1f4, #75e6da, #189ab4); /* updated gradient */
+      background: linear-gradient(135deg, #d4f1f4, #75e6da, #189ab4);
       color: #1a3e47;
       display: flex;
       justify-content: center;
@@ -192,6 +192,33 @@
     </form>
 
     <p>Already have an account? <a href="{% url 'login' %}">Login here</a></p>
+
+    {% if messages %}
+      <ul id="django-messages" style="display:none;">
+        {% for message in messages %}
+          <li data-message="{{ message }}" data-tags="{{ message.tags }}"></li>
+        {% endfor %}
+      </ul>
+    {% endif %}
   </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const messages = document.querySelectorAll("#django-messages li");
+
+      messages.forEach(msg => {
+        const text = msg.dataset.message;
+        const tag = msg.dataset.tags;
+
+        if (tag === "success") {
+          alert("✅ " + text);
+        } else if (tag === "error") {
+          alert("❌ " + text);
+        } else {
+          alert(text);
+        }
+      });
+    });
+  </script>
 </body>
 </html>

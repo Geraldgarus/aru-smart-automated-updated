@@ -827,6 +827,8 @@ from django.contrib import messages
 from .forms import RegisterForm, LoginForm
 from django.contrib.auth.models import User
 
+from django.contrib import messages
+
 def register(request):
     if request.method == 'POST':
         form = RegisterForm(request.POST)
@@ -837,6 +839,8 @@ def register(request):
             user.save()
             messages.success(request, "Registration successful. Please log in.")
             return redirect('login')
+        else:
+            messages.error(request, "Registration failed due to invalid data. Please correct and resubmit.")
     else:
         form = RegisterForm()
     return render(request, 'register.html', {'form': form})
@@ -850,12 +854,16 @@ def login_view(request):
             user = authenticate(request, username=username, password=password)
             if user is not None:
                 login(request, user)
-                return redirect('forms_link')
+                messages.success(request, "Login successful.")
+                return redirect('forms_link')  # redirected page should show this message
             else:
                 messages.error(request, "Invalid credentials.")
+        else:
+            messages.error(request, "Invalid credentials.")
     else:
         form = LoginForm()
     return render(request, 'login.html', {'form': form})
+
 
 def logout_view(request):
     logout(request)

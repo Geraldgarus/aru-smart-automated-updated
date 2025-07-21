@@ -15,7 +15,7 @@
       align-items: center;
       padding: 20px;
       color: #1f2937;
-      background: linear-gradient(135deg, #e0f2fe, #3b82f6); /* blue gradient background */
+      background: linear-gradient(135deg, #e0f2fe, #3b82f6);
     }
 
     .login-wrapper {
@@ -157,6 +157,33 @@
     </form>
 
     <p>Don't have an account? <a href="{% url 'register' %}">Register now</a></p>
+
+    {% if messages %}
+      <ul id="django-messages" style="display: none;">
+        {% for message in messages %}
+          <li data-message="{{ message }}" data-tags="{{ message.tags }}"></li>
+        {% endfor %}
+      </ul>
+    {% endif %}
   </main>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const messages = document.querySelectorAll("#django-messages li");
+
+      messages.forEach((msg) => {
+        const text = msg.dataset.message;
+        const tag = msg.dataset.tags;
+
+        if (tag === "success") {
+          alert("✅ " + text);
+        } else if (tag === "error") {
+          alert("❌ " + text);
+        } else {
+          alert(text);
+        }
+      });
+    });
+  </script>
 </body>
 </html>

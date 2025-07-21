@@ -129,9 +129,11 @@
       background: white;
       border-radius: 20px;
       box-shadow: 0 12px 24px rgb(0 0 0 / 0.15);
-      padding: 2.5rem 3rem;
-      flex: 1 1 380px;
-      min-width: 320px;
+      padding: 1.8rem 1.7rem; /* reduced padding */
+      flex: 1 1 320px;
+      min-width: 280px;
+      max-width: 360px; /* reduced max-width */
+      box-sizing: border-box;
     }
 
     .contact-details-section h2,
@@ -144,7 +146,7 @@
 
     .contact-details-section p,
     .developers-contact-section p {
-      font-size: 1.1rem;
+      font-size: 1.05rem; /* slightly smaller font */
       margin-bottom: 1rem;
       display: flex;
       align-items: center;
@@ -164,26 +166,32 @@
     }
 
     .social-links a {
-      font-size: 1.5rem;
+      font-size: 1.4rem; /* slightly smaller icons */
       color: #3b82f6;
+      transition: color 0.3s ease;
+    }
+    .social-links a:hover {
+      color: #1e40af;
     }
 
     .developer-card {
       display: flex;
-      gap: 1rem;
+      gap: 0.8rem; /* reduced gap */
       background: #f1f5f9;
-      padding: 1rem;
+      padding: 0.9rem; /* reduced padding */
       border-radius: 12px;
       margin-bottom: 1.5rem;
+      align-items: center;
     }
 
     .developer-icon {
-      font-size: 3rem;
+      font-size: 2.6rem; /* smaller icon */
       color: #3b82f6;
     }
 
     .developer-card h3 {
-      margin-bottom: 0.3rem;
+      margin-bottom: 0.2rem;
+      font-size: 1.1rem;
     }
 
     footer {
@@ -191,6 +199,7 @@
       color: #94a3b8;
       padding: 1rem 2rem;
       text-align: center;
+      font-size: 0.9rem;
     }
 
     /* RESPONSIVE NAVIGATION */
@@ -232,6 +241,32 @@
       nav ul li:first-child a {
         border-top: none;
       }
+
+      /* Smaller cards on mobile */
+      .contact-details-section,
+      .developers-contact-section {
+        max-width: 100%;
+        padding: 1.2rem 1.5rem;
+        min-width: auto;
+      }
+
+      .developer-card {
+        gap: 0.5rem;
+        padding: 0.6rem;
+      }
+
+      .developer-icon {
+        font-size: 2rem;
+      }
+
+      .contact-details-section p,
+      .developers-contact-section p {
+        font-size: 0.95rem;
+      }
+
+      .social-links a {
+        font-size: 1.2rem;
+      }
     }
   </style>
 
@@ -251,7 +286,7 @@
         <span>ARDHI UNIVERSITY</span>
       </a>
     </div>
-    <button class="menu-toggle" onclick="toggleMenu()">
+    <button class="menu-toggle" onclick="toggleMenu()" aria-label="Toggle navigation menu">
       <i class="fas fa-bars"></i>
     </button>
     <ul>
@@ -277,16 +312,16 @@
         <p><i class="fas fa-envelope"></i> info@ardhi.ac.tz</p>
         <p><i class="fas fa-clock"></i> Mon - Fri, 8:00 AM - 5:00 PM</p>
         <div class="social-links">
-          <a href="#"><i class="fab fa-facebook-f"></i></a>
-          <a href="#"><i class="fab fa-twitter"></i></a>
-          <a href="#"><i class="fab fa-linkedin-in"></i></a>
+          <a href="#"><i class="fab fa-facebook-f" aria-label="Facebook"></i></a>
+          <a href="#"><i class="fab fa-twitter" aria-label="Twitter"></i></a>
+          <a href="#"><i class="fab fa-linkedin-in" aria-label="LinkedIn"></i></a>
         </div>
       </section>
 
       <section class="developers-contact-section">
         <h2>Developers Contact</h2>
         <div class="developer-card">
-          <i class="fas fa-user-circle developer-icon"></i>
+          <i class="fas fa-user-circle developer-icon" aria-hidden="true"></i>
           <div>
             <h3>Gerald Garus</h3>
             <p>Developer</p>
@@ -294,7 +329,6 @@
             <a href="mailto:geraldgarus@gmail.com">geraldgarus@gmail.com</a>
           </div>
         </div>
-        
       </section>
     </div>
   </main>

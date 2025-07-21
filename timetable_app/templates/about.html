@@ -195,6 +195,7 @@
       color: #38bdf8;
     }
 
+    /* Responsive styles */
     @media (max-width: 768px) {
       .nav-toggle {
         display: block;
@@ -232,6 +233,19 @@
         align-items: center;
         text-align: center;
         gap: 0.5rem;
+      }
+
+      /* Center feature cards on small devices */
+      .feature-grid {
+        grid-template-columns: 1fr;
+        justify-items: center;
+        max-width: 320px;
+        margin: 0 auto;
+      }
+
+      .feature {
+        width: 100%;
+        max-width: 320px;
       }
     }
   </style>
